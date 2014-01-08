@@ -93,8 +93,17 @@ namespace OmegaSS {
 
         public bool Operational {
             get {
-                return Started && Engine.EngineIgnited && !Engine.flameout && !Engine.engineShutdown;
+                return Started && 
+                    Engine.EngineIgnited && 
+                    Engine.isRunningEngine &&
+                    !Engine.flameout && 
+                    !Engine.engineShutdown;
             }
+        }
+
+        public override void OnUpdate() {
+            base.OnUpdate();
+            Fields["ControlString"].guiActive = Engine.isRunningEngine;
         }
 
         public override void OnStart(StartState state) {

@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="OmegaStabilitySolutions\Controller\EngineController.cs" />
     <Compile Include="OmegaStabilitySolutions\Controller\WheelController.cs" />
-    <Compile Include="OmegaStabilitySolutions\ControlMode\BalanceEngines.cs" />
+    <Compile Include="OmegaStabilitySolutions\ControlMode\BalanceShip.cs" />
     <Compile Include="OmegaStabilitySolutions\ControlMode\ControlMode.cs" />
     <Compile Include="OmegaStabilitySolutions\EngineManager.cs" />
     <Compile Include="OmegaStabilitySolutions\EngineInfo.cs" />
@@ -85,6 +85,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="GameData\OSS_LLL.cfg" />
+    <None Include="GameData\OSS_Squad.cfg" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

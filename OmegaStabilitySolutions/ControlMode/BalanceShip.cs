@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 namespace OmegaSS.ControlMode {
-    class BalanceEngines : ControlMode {
+    class BalanceShip : ControlMode {
         private EngineManager engineManager;
 
         private float prevDampScalar;

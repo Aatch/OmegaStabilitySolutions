@@ -114,7 +114,7 @@ namespace OmegaSS {
             activated = true;
             if (!inEditor) {
                 if (!inControl) return;
-                controlMode = new ControlMode.BalanceEngines();
+                controlMode = new ControlMode.BalanceShip();
                 controlMode.vessel = vessel;
                 controlMode.Start();
             }

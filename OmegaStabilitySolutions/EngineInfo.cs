@@ -13,6 +13,7 @@ namespace OmegaSS {
         /// Whether or not this engine is operational
         /// </summary>
         bool isOperational { get; }
+        bool isRunningEngine { get; }
         
         #region Thrust Information
         /// <summary>
@@ -167,13 +168,17 @@ namespace OmegaSS {
         public float requestedThrottle {
             get { return engine.requestedThrottle; }
         }
+
+        public bool isRunningEngine { get { return true; } }
     }
 
     public class ModuleEnginesFXInfo : IEngineInfo {
         private ModuleEnginesFX engine;
+        private MultiModeEngine mme;
 
         public ModuleEnginesFXInfo(ModuleEnginesFX engine) {
             this.engine = engine;
+            this.mme = engine.part.Modules.OfType<MultiModeEngine>().FirstOrDefault();
         }
 
         public bool isOperational {
@@ -278,6 +283,12 @@ namespace OmegaSS {
 
         public float requestedThrottle {
             get { return engine.requestedThrottle; }
+        }
+
+        public bool isRunningEngine {
+            get {
+                return mme.runningPrimary && mme.primaryEngineID == engine.engineID;
+            }
         }
     }
 
