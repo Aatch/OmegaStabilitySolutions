@@ -62,6 +62,7 @@
     <Compile Include="OmegaStabilitySolutions\ControlMode\BalanceEngines.cs" />
     <Compile Include="OmegaStabilitySolutions\ControlMode\ControlMode.cs" />
     <Compile Include="OmegaStabilitySolutions\EngineManager.cs" />
+    <Compile Include="OmegaStabilitySolutions\EngineInfo.cs" />
     <Compile Include="OmegaStabilitySolutions\PartModifier.cs" />
     <Compile Include="OmegaStabilitySolutions\KSPAddonFixed.cs" />
     <Compile Include="OmegaStabilitySolutions\Controller\PartController.cs" />

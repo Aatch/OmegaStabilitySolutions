@@ -14,10 +14,13 @@ namespace OmegaSS {
         [KSPField(isPersistant = false)]
         public bool hasGimbal = false;
 
+        [KSPField(isPersistant = false)]
+        public string engineID = null;
+
         public bool Started { get; private set; }
 
         private ModuleGimbal gimbal = null;
-        public ModuleEngines Engine { get; private set; }
+        public IEngineInfo Engine { get; private set; }
 
         public Vector3 vesselCoM = Vector3.zero;
 
@@ -97,11 +100,15 @@ namespace OmegaSS {
         public override void OnStart(StartState state) {
             startState = state;
             base.OnStart(state);
-            Started = true;
 
-            Engine = part.Modules.OfType<ModuleEngines>()
-                .Where(m => m.thrustVectorTransformName == thrustVectorTransformName)
-                .First();
+            if (engineID != null && engineID.Length > 0) {
+                Engine = new ModuleEnginesFXInfo(part.Modules.OfType<ModuleEnginesFX>()
+                    .Where(m => m.engineID == engineID).First());
+            } else {
+                Engine = new ModuleEnginesInfo(part.Modules.OfType<ModuleEngines>()
+                    .Where(m => m.thrustVectorTransformName == thrustVectorTransformName)
+                    .First());
+            }
 
             useEngineResponseTime = Engine.useEngineResponseTime;
             if (useEngineResponseTime) {
@@ -142,10 +149,12 @@ namespace OmegaSS {
 
                 gimbal.gimbalTransforms.Clear();
             } else {
-                foreach (var t in Engine.thrustTransforms) {
+                foreach (var t in Engine.Transforms()) {
                     thrustTransforms.Add(t);
                 }
             }
+
+            Started = true;
         }
 
         public override void FixedUpdate() {

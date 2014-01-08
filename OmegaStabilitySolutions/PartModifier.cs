@@ -22,6 +22,7 @@ namespace OmegaSS {
                     List<ConfigNode> engineConfigs = new List<ConfigNode>();
                     List<string> transformNames = new List<string>();
                     bool thrustTransform = false;
+                    string engineID = null;
 
                     foreach (var node in config.GetNodes("MODULE")) {
                         var name = node.GetValue("name");
@@ -29,6 +30,9 @@ namespace OmegaSS {
                         if (name == typeof(ModuleEngines).Name ||
                             name == typeof(ModuleEnginesFX).Name) {
                                 engineConfigs.Add(node);
+                                if (name == typeof(ModuleEnginesFX).Name) {
+                                    engineID = node.GetValue("engineID");
+                                }
                         } else if (name == typeof(ModuleGimbal).Name) {
                             if (node.HasValue("gimbalTransformName"))
                                 transformNames.Add(node.GetValue("gimbalTransformName"));
@@ -53,9 +57,12 @@ namespace OmegaSS {
                         }
 
                         ConfigNode aug = config.AddNode("MODULE");
-                        aug.AddValue("name", "EngineController");
+                        aug.AddValue("name", typeof(EngineController).Name);
                         aug.AddValue("thrustVectorTransformName", tname);
                         aug.AddValue("hasGimbal", gimballed ? "true" : "false");
+                        if (engineID != null) {
+                            aug.AddValue("engineID", engineID);
+                        }
                     }
                 }
             }
