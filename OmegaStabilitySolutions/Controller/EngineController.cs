@@ -234,7 +234,7 @@ namespace OmegaSS {
         }
 
         private void doExternalControl() {
-            setEngineValues(requestedThrust / maxThrust, gimbalX, gimbalY);
+            setEngineValues(requestedThrust / Engine.maxThrust, gimbalX, gimbalY);
         }
 
         private void setEngineValues(float throttle, float targetX, float targetY) {

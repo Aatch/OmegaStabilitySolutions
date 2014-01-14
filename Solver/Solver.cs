@@ -112,11 +112,14 @@ namespace OmegaSS.LP {
 
             this.configureSolver();
 
+            lpsolve.write_lp(lp_model, "GameData/lp_log.txt");
+
             lpsolve.lpsolve_return status = lpsolve.solve(lp_model);
             if (status == lpsolve.lpsolve_return.NUMFAILURE) {
                 lpsolve.default_basis(lp_model);
                 status = lpsolve.solve(lp_model);
             }
+            OSSDebug.Log("{0}", status);
             this.status = convertLPStatus(status);
 
             results = new double[nCols];
@@ -133,8 +136,7 @@ namespace OmegaSS.LP {
                 case lpsolve.lpsolve_return.INFEASIBLE: return Status.Infeasible;
                 case lpsolve.lpsolve_return.UNBOUNDED:  return Status.Unbounded;
                 default:
-                    if ((int)s == -1)
-                        throw new Win32Exception();
+                    OSSDebug.Log("{0}", s);
                     return Status.Error;
             }
         }
